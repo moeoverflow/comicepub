@@ -1,18 +1,19 @@
+import os
 from jinja2 import Environment
 from typing import List, Tuple
 
 
 def get_content_from_file(path):
-    with open(path, 'r') as f:
+    with open(os.path.join(os.path.dirname(__file__), path), 'r') as f:
         return f.read()
 
 
 def render_mimetype():
-    return get_content_from_file('./comicepub/template/mimetype')
+    return get_content_from_file('./template/mimetype')
 
 
 def render_container_xml():
-    return get_content_from_file('./comicepub/template/container.xml')
+    return get_content_from_file('./template/container.xml')
 
 
 def render_standard_opf(
@@ -28,7 +29,7 @@ def render_standard_opf(
         manifest_xhtmls: List[Tuple[str, str]],
         manifest_spines: List[str],
 ) -> str:
-    template = get_content_from_file('./comicepub/template/standard.opf')
+    template = get_content_from_file('./template/standard.opf')
     return Environment().from_string(template).render(
         uuid=uuid,
         title=title,
@@ -48,7 +49,7 @@ def render_navigation_documents_xhtml(
         title: str,
         nav_items: List[Tuple[str, str]],
 ) -> str:
-    template = get_content_from_file('./comicepub/template/navigation-documents.xhtml')
+    template = get_content_from_file('./template/navigation-documents.xhtml')
     return Environment().from_string(template).render(
         title=title,
         nav_items=nav_items,
@@ -63,7 +64,7 @@ def render_xhtml(
         view_height: int,
         cover: bool = False,
 ) -> str:
-    template = get_content_from_file('./comicepub/template/p.xhtml')
+    template = get_content_from_file('./template/p.xhtml')
     return Environment().from_string(template).render(
         title=title,
         image_id=image_id,
@@ -75,4 +76,4 @@ def render_xhtml(
 
 
 def get_fixed_layout_jp_css():
-    return get_content_from_file('./comicepub/template/fixed-layout-jp.css')
+    return get_content_from_file('./template/fixed-layout-jp.css')

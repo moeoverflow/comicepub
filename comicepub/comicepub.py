@@ -3,13 +3,13 @@ import zipfile
 import uuid
 import datetime
 from typing import Tuple, List
-from comicepub.render import render_mimetype
-from comicepub.render import render_container_xml
-from comicepub.render import render_navigation_documents_xhtml
-from comicepub.render import render_standard_opf
-from comicepub.render import render_xhtml
-from comicepub.render import get_fixed_layout_jp_css
 from mimetypes import MimeTypes
+from .render import render_mimetype
+from .render import render_container_xml
+from .render import render_navigation_documents_xhtml
+from .render import render_standard_opf
+from .render import render_xhtml
+from .render import get_fixed_layout_jp_css
 
 
 class ComicEpub:
