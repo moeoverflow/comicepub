@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package
+    xmlns="http://www.idpf.org/2007/opf"
+    version="3.0"
+    xml:lang="ja"
+    unique-identifier="unique-id"
+    prefix="rendition: http://www.idpf.org/vocab/rendition/#
+            ebpaj: http://www.ebpaj.jp/
+            fixed-layout-jp: http://www.digital-comic.jp/"
+>
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <!-- 作品名 -->
+        <dc:title id="title">{{ title[0] }}</dc:title>
+        <meta reﬁnes="#title" property="ﬁle-as">{{ title[1] }}</meta>
+
+        <!-- 著者名 -->
+        {% for creators in creators %}
+        <dc:creator id="creator01">{{ creators[0] }}</dc:creator>
+<!--        <meta reﬁnes="#creator01" property="role" scheme="marc:relators">{{ creators[1] }}</meta>-->
+        <meta reﬁnes="#creator01" property="ﬁle-as">{{ creators[1] }}</meta>
+        <meta reﬁnes="#creator01" property="display-seq">{{ loop.index }}</meta>
+        {% endfor %}
+
+        <!-- 出版社名 -->
+        <dc:publisher id="publisher">{{ publisher[0] }}</dc:publisher>
+        <meta reﬁnes="#publisher" property="ﬁle-as">{{ publisher[1] }}</meta>
+
+        <!-- ⾔語 -->
+        <dc:language>{{ language }}</dc:language>
+
+        <!-- ファイルid -->
+        <dc:identifier id="unique-id">{{ uuid }}</dc:identifier>
+
+        <!-- 更新⽇ -->
+        <meta property="dcterms:modiﬁed">{{ updated_date }}</meta>
+
+        <!-- Fixed-Layout Documents指定 -->
+        <meta property="rendition:layout">pre-paginated</meta>
+        <meta property="rendition:spread">landscape</meta>
+
+        <!-- 基準サイズ -->
+        <meta property="fixed-layout-jp:viewport">width={{ view_width }}, height={{ view_height }}</meta>
+
+        <!-- etc. -->
+        <meta property="ebpaj:guide-version">1.1</meta>
+    </metadata>
+
+    <manifest>
+        <!-- navigation -->
+        <item media-type="application/xhtml+xml" id="toc" href="navigation-documents.xhtml" properties="nav"/>
+
+        <!-- style -->
+        <item media-type="text/css" id="fixed-layout-jp" href="style/fixed-layout-jp.css"/>
+
+        <!-- image -->
+        {% for (id, ext, mimetype) in manifest_images %}
+        {% if id == "cover" %}
+        <item media-type="{{ mimetype }}" id="{{ id }}" href="image/{{ id }}{{ ext }}" properties="cover-image"/>
+        {% else %}
+        <item media-type="{{ mimetype }}" id="{{ id }}" href="image/{{ id }}{{ ext }}"/>
+        {% endif %}
+        {% endfor %}
+
+        <!-- xhtml -->
+        {% for (id, image_id) in manifest_xhtmls %}
+        {% if id == "p-cover" %}
+        <item media-type="application/xhtml+xml" id="p-cover" href="xhtml/p-cover.xhtml" properties="svg" fallback="cover"/>
+        {% else %}
+        <item media-type="application/xhtml+xml" id="{{ id }}" href="xhtml/{{ id }}.xhtml" properties="svg" fallback="{{ id }}"/>
+        {% endif %}
+        {% endfor %}
+    </manifest>
+
+    <spine page-progression-direction="rtl">
+        {% for xhtml_id in manifest_spines %}
+        {% if xhtml_id == "cover" %}
+        <itemref linear="yes" idref="cover" properties="rendition:page-spread-center"/>
+        {% else %}
+        {% if loop.index % 2 == 0 %}
+        <itemref linear="yes" idref="{{ xhtml_id }}" properties="page-spread-right"/>
+        {% else %}
+        <itemref linear="yes" idref="{{ xhtml_id }}" properties="page-spread-left"/>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    </spine>
+
+</package>

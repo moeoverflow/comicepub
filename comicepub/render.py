@@ -1,0 +1,78 @@
+from jinja2 import Environment
+from typing import List, Tuple
+
+
+def get_content_from_file(path):
+    with open(path, 'r') as f:
+        return f.read()
+
+
+def render_mimetype():
+    return get_content_from_file('./comicepub/template/mimetype')
+
+
+def render_container_xml():
+    return get_content_from_file('./comicepub/template/container.xml')
+
+
+def render_standard_opf(
+        uuid: str,
+        title: Tuple[str, str],
+        authors: List[Tuple[str, str, str]],
+        publisher: Tuple[str, str],
+        language: str,
+        updated_date: str,
+        view_width: int,
+        view_height: int,
+        manifest_images: List[Tuple[str, str]],
+        manifest_xhtmls: List[Tuple[str, str]],
+        manifest_spines: List[str],
+) -> str:
+    template = get_content_from_file('./comicepub/template/standard.opf')
+    return Environment().from_string(template).render(
+        uuid=uuid,
+        title=title,
+        authors=authors,
+        publisher=publisher,
+        language=language,
+        updated_date=updated_date,
+        view_width=view_width,
+        view_height=view_height,
+        manifest_images=manifest_images,
+        manifest_xhtmls=manifest_xhtmls,
+        manifest_spines=manifest_spines,
+    )
+
+
+def render_navigation_documents_xhtml(
+        title: str,
+        nav_items: List[Tuple[str, str]],
+) -> str:
+    template = get_content_from_file('./comicepub/template/navigation-documents.xhtml')
+    return Environment().from_string(template).render(
+        title=title,
+        nav_items=nav_items,
+    )
+
+
+def render_xhtml(
+        title: str,
+        image_id: str,
+        image_ext: str,
+        view_width: int,
+        view_height: int,
+        cover: bool = False,
+) -> str:
+    template = get_content_from_file('./comicepub/template/p.xhtml')
+    return Environment().from_string(template).render(
+        title=title,
+        image_id=image_id,
+        image_ext=image_ext,
+        view_width=view_width,
+        view_height=view_height,
+        cover=cover,
+    )
+
+
+def get_fixed_layout_jp_css():
+    return get_content_from_file('./comicepub/template/fixed-layout-jp.css')
