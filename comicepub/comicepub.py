@@ -26,15 +26,15 @@ class ComicEpub:
             view_height: int = 1200,
     ):
         if title is None:
-            self.title = ['Unknown Title', 'Unknown Title']
+            self.title = ('Unknown Title', 'Unknown Title')
         else:
             self.title = title
         if authors is None:
-            self.authors = [['Unknown Author', 'Unknown Author']]
+            self.authors = [('Unknown Author', 'Unknown Author')]
         else:
             self.authors = authors
         if publisher is None:
-            self.publisher = ['Unknown Publisher', 'Unknown Publisher']
+            self.publisher = ('Unknown Publisher', 'Unknown Publisher')
         else:
             self.publisher = publisher
 

@@ -14,10 +14,10 @@
         <meta reﬁnes="#title" property="ﬁle-as">{{ title[1] }}</meta>
 
         <!-- 著者名 -->
-        {% for creators in creators %}
-        <dc:creator id="creator01">{{ creators[0] }}</dc:creator>
-<!--        <meta reﬁnes="#creator01" property="role" scheme="marc:relators">{{ creators[1] }}</meta>-->
-        <meta reﬁnes="#creator01" property="ﬁle-as">{{ creators[1] }}</meta>
+        {% for author in authors %}
+        <dc:creator id="creator01">{{ author[0] }}</dc:creator>
+<!--        <meta reﬁnes="#creator01" property="role" scheme="marc:relators">{{ author[1] }}</meta>-->
+        <meta reﬁnes="#creator01" property="ﬁle-as">{{ author[1] }}</meta>
         <meta reﬁnes="#creator01" property="display-seq">{{ loop.index }}</meta>
         {% endfor %}
 
