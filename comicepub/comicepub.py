@@ -13,6 +13,9 @@ from .render import get_fixed_layout_jp_css
 
 
 class ComicEpub:
+    """
+    This ComicEpub class is dedicated to generating ditigal comic EPUB files conataining image-only content.
+    """
 
     def __init__(
             self, filename,
@@ -25,6 +28,20 @@ class ComicEpub:
             view_width: int = 848,
             view_height: int = 1200,
     ):
+        """
+        Create a zip file as an EPUB container, which is only epub-valid after calling the save() method.
+
+        :rtype: instance of ComicEpub
+        :param filename: epub file path to save
+        :param epubid: unique epub id - Default: random uuid
+        :param title: epub title - Tuple(title, file_as) - Default: Unknown Title
+        :param authors: epub authors - List of Tuple(author_name, file_as) - Default: Unknown Author
+        :param publisher: epub publisher - Tuple(publisher_name, file_as) - Default: Unknown Publisher
+        :param language: epub language - Default: ja
+        :param updated_date: epub updated_date - Default: current time
+        :param view_width: epub view_width - Default: 848
+        :param view_height: epub view_height - Default: 1200
+        """
         if title is None:
             self.title = ('Unknown Title', 'Unknown Title')
         else:
@@ -99,6 +116,13 @@ class ComicEpub:
         return xhtml_id
 
     def add_comic_page(self, image_data, image_ext, cover=False):
+        """
+        Add images to the page in order, each image is a page.
+
+        :param image_data: data of image
+        :param image_ext: extension of image
+        :param cover: true if image is cover
+        """
         index = len(self.manifest_xhtmls)
         image_id, image_ext, image_mimetype = self.__add_image(index, image_data, image_ext, cover)
         xhtml_id = self.__add_xhtml(index, self.title[0], image_id, image_ext, cover)
@@ -108,6 +132,9 @@ class ComicEpub:
         self.manifest_spines.append(xhtml_id)
 
     def save(self):
+        """
+        generate epub required files, then close and save epub file.
+        """
         self.epub.writestr("mimetype", render_mimetype())
         self.epub.writestr("META-INF/container.xml", render_container_xml())
         self.epub.writestr("item/standard.opf", render_standard_opf(
