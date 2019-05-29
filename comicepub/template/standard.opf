@@ -25,6 +25,11 @@
         <dc:publisher id="publisher">{{ publisher[0] }}</dc:publisher>
         <meta reﬁnes="#publisher" property="ﬁle-as">{{ publisher[1] }}</meta>
 
+        <!-- 标签 -->
+        {% for subject in subjects %}
+        <dc:subject>{{ subject }}</dc:subject>
+        {% endfor %}
+
         <!-- ⾔語 -->
         <dc:language>{{ language }}</dc:language>
 

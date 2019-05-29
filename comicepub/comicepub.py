@@ -2,7 +2,7 @@ import os.path
 import zipfile
 import uuid
 import datetime
-from typing import Tuple, List
+from typing import Tuple, List, Set
 from mimetypes import MimeTypes
 from .render import render_mimetype
 from .render import render_container_xml
@@ -21,6 +21,7 @@ class ComicEpub:
             self, filename,
             epubid: str = uuid.uuid1(),
             title: Tuple[str, str] = None,
+            subjects: Set[str] = None,
             authors: List[Tuple[str, str, str]] = None,
             publisher: Tuple[str, str] = None,
             language: str = "ja",
@@ -46,6 +47,10 @@ class ComicEpub:
             self.title = ('Unknown Title', 'Unknown Title')
         else:
             self.title = title
+        if subjects is None:
+            self.subjects = set()
+        else:
+            self.subjects = subjects
         if authors is None:
             self.authors = [('Unknown Author', 'Unknown Author')]
         else:
@@ -140,6 +145,7 @@ class ComicEpub:
         self.epub.writestr("item/standard.opf", render_standard_opf(
             uuid=self.epubid,
             title=self.title,
+            subjects=self.subjects,
             authors=self.authors,
             publisher=self.publisher,
             language=self.language,

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="comicepub",
-    version="0.1.2",
+    version="0.1.9",
     author="ShinCurry",
     author_email="shincurryyang@gmail.com",
     description="Japanese comic EPUB3 generate tool",

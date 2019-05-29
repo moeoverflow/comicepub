@@ -1,6 +1,6 @@
 import os
 from jinja2 import Environment
-from typing import List, Tuple
+from typing import List, Tuple, Set
 
 
 def get_content_from_file(path):
@@ -19,6 +19,7 @@ def render_container_xml():
 def render_standard_opf(
         uuid: str,
         title: Tuple[str, str],
+        subjects: Set[str],
         authors: List[Tuple[str, str, str]],
         publisher: Tuple[str, str],
         language: str,
@@ -33,6 +34,7 @@ def render_standard_opf(
     return Environment().from_string(template).render(
         uuid=uuid,
         title=title,
+        subjects=subjects,
         authors=authors,
         publisher=publisher,
         language=language,
