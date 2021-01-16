@@ -1,11 +1,12 @@
 import setuptools
+from comicepub.version import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="comicepub",
-    version="0.2.0",
+    version=__version__,
     author="ShinCurry",
     author_email="shincurryyang@gmail.com",
     description="Japanese comic EPUB3 generate tool",
@@ -22,4 +23,9 @@ setuptools.setup(
     install_requires=[
         'Jinja2>=2.10.1'
     ],
+    entry_points={
+        'console_scripts': [
+            'comicepub = comicepub.cli:main'
+        ]
+    }
 )
