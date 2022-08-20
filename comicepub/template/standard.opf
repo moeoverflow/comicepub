@@ -11,19 +11,19 @@
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
         <!-- 作品名 -->
         <dc:title id="title">{{ title[0] }}</dc:title>
-        <meta reﬁnes="#title" property="ﬁle-as">{{ title[1] }}</meta>
+        <meta refines="#title" property="file-as">{{ title[1] }}</meta>
 
         <!-- 著者名 -->
         {% for author in authors %}
         <dc:creator id="creator01">{{ author[0] }}</dc:creator>
-<!--        <meta reﬁnes="#creator01" property="role" scheme="marc:relators">{{ author[1] }}</meta>-->
-        <meta reﬁnes="#creator01" property="ﬁle-as">{{ author[1] }}</meta>
-        <meta reﬁnes="#creator01" property="display-seq">{{ loop.index }}</meta>
+<!--        <meta refines="#creator01" property="role" scheme="marc:relators">{{ author[1] }}</meta>-->
+        <meta refines="#creator01" property="file-as">{{ author[1] }}</meta>
+        <meta refines="#creator01" property="display-seq">{{ loop.index }}</meta>
         {% endfor %}
 
         <!-- 出版社名 -->
         <dc:publisher id="publisher">{{ publisher[0] }}</dc:publisher>
-        <meta reﬁnes="#publisher" property="ﬁle-as">{{ publisher[1] }}</meta>
+        <meta refines="#publisher" property="file-as">{{ publisher[1] }}</meta>
 
         <!-- 标签 -->
         {% for subject in subjects %}
@@ -37,7 +37,7 @@
         <dc:identifier id="unique-id">{{ uuid }}</dc:identifier>
 
         <!-- 更新⽇ -->
-        <meta property="dcterms:modiﬁed">{{ updated_date }}</meta>
+        <meta property="dcterms:modified">{{ updated_date }}</meta>
 
         <!-- Fixed-Layout Documents指定 -->
         <meta property="rendition:layout">pre-paginated</meta>
