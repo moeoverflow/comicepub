@@ -1,1 +1,1 @@
-from .comicepub import ComicEpub
+from .comicepub import ComicEpub  # NOQA
