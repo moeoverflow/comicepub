@@ -1,12 +1,18 @@
+import os
 import setuptools
-from comicepub.version import __version__
 
-with open("README.md", "r") as fh:
+here = os.path.abspath(os.path.dirname(__file__))
+about = {}
+
+with open(os.path.join(here, "README.md"), "r") as fh:
     long_description = fh.read()
+
+with open(os.path.join(here, "comicepub", "__version__.py")) as f:
+    exec(f.read(), about)
 
 setuptools.setup(
     name="comicepub",
-    version=__version__,
+    version=about["__version__"],
     author="ShinCurry",
     author_email="shincurryyang@gmail.com",
     description="Japanese comic EPUB3 generate tool",
@@ -20,12 +26,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=[
-        'Jinja2>=2.10.1'
-    ],
-    entry_points={
-        'console_scripts': [
-            'comicepub = comicepub.cli:main'
-        ]
-    }
+    install_requires=["Jinja2>=2.10.1"],
+    entry_points={"console_scripts": ["comicepub = comicepub.cli:main"]},
 )
