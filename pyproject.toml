@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "comicepub"
+description = "Japanese comic EPUB3 generate tool"
+readme = "README.md"
+requires-python = ">=3.7, < 3.13"
+license = { file = "LICENSE" }
+authors = [{ name = "ShinCurry", email = "shincurryyang@gmail.com" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["Jinja2>=2.10.1"]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/moeoverflow/comicepub"
+Source = "https://github.com/pypa/comicepub/"
+
+[project.scripts]
+comicepub = "comicepub.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "comicepub.__version__.__version__" }
